@@ -1,11 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter } from "react-router-dom";
+import "./App.css";
+import LayoutPage from "./layout";
+
 
 function App() {
   return (
-    <div className="App">
+   <BrowserRouter>
+   <LayoutPage>
+        <p>ini konten</p>
+      </LayoutPage>
+   </BrowserRouter>
       
-    </div>
+    
   );
 }
 
