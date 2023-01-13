@@ -1,9 +1,9 @@
 import React from "react";
 import { Route, Routes } from "react-router";
-import Product from "./pages/product";
-import Home from "./pages/home";
-import LayoutPage from "./layout";
-import Dashboard from "./pages/dashboard";
+import Product from "../product";
+import Home from "../home";
+import LayoutPage from "../../layout";
+import Dashboard from "../dashboard";
 
 const Routing = () => {
   return (
