@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Card, Col, Row } from "antd";
 import { convertRupiah } from "../../helper/convert-rupiah";
+import { appConfig } from "../../config/app";
 
 export default function CardProduct(props) {
   const { harga, title, deskripsi, category, image } = props;
@@ -11,9 +12,7 @@ export default function CardProduct(props) {
         style={{
           width: 340,
         }}
-        cover={
-          <img alt="example" src={`http://localhost:3000/file/${image}`} />
-        }
+        cover={<img alt="example" src={`${appConfig.imageUrl + image}`} />}
       >
         <div className="text-lg font-bold">
           <span>{title}</span>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
+import { appConfig } from "../config/app";
 
 export const UserContext = createContext([
   {
@@ -12,10 +13,9 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const controler = new AbortController();
     axios
-      .get(`http://localhost:3000/users`, {
+      .get(`${appConfig.baseUrl}/users`, {
         signal: controler.signal,
         headers: {
-          Accept: "application/json",
           "Content-Type": "application/json",
           //   Authorization: `Bearer ${token}`, //Add this line
         },

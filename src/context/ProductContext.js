@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { appConfig } from "../config/app";
 
 export const ProductContext = createContext([
   {
@@ -13,7 +14,7 @@ export const ProductProvider = ({ children }) => {
   useEffect(() => {
     const controler = new AbortController();
     axios
-      .get(`http://localhost:3000/menu`, {
+      .get(`${appConfig.baseUrl}/menu`, {
         signal: controler.signal,
         headers: {
           "Content-Type": "application/json",

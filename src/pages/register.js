@@ -1,8 +1,31 @@
-import { Form, Checkbox, Button, Input } from "antd";
+import { Form, Checkbox, Button, Input, message } from "antd";
 import React from "react";
 import Colors from "../themes/color";
+import { authRepository } from "../repository/auth";
+import { useNavigate } from "react-router";
 
 export default function Register() {
+  const [form] = Form.useForm();
+  const router = useNavigate;
+  const submitRegist = () => {
+    form.validateFields().then(async (values) => {
+      try {
+        const dataRegist = {
+          email: values.email,
+          password: values.password,
+          phone: values.phone,
+          fullName: values.fullname,
+          roleId: 2,
+        };
+        console.log(dataRegist, "ini data regist");
+        await authRepository.api.register(dataRegist);
+        await message.success("Register Berhasil");
+        await router("/login");
+      } catch (error) {
+        message.error("Error");
+      }
+    });
+  };
   return (
     <div
       className={
@@ -17,7 +40,12 @@ export default function Register() {
         {/* <Image preview={false} src={'/assets/logo/horizontal.png'} alt={"SaranaInvest.id logo"} className={"w-40 my-8"} /> */}
         <span className={"text-2xl "}>Daftar</span>
         <div className={"w-[80%]"}>
-          <Form layout="vertical" onFinish={""} requiredMark={false}>
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={submitRegist}
+            requiredMark={false}
+          >
             <Form.Item
               name="fullname"
               label="Nama Lengkap"
@@ -36,7 +64,7 @@ export default function Register() {
               rules={[
                 {
                   required: true,
-                  type: "email",
+
                   message: "Mohon isi nomer hp anda",
                 },
               ]}
@@ -67,6 +95,7 @@ export default function Register() {
               <Button
                 type="primary"
                 size={"large"}
+                htmlType={"submit"}
                 className={`bg-blue-600 text-white w-full mt-7`}
               >
                 <span className={"font-bold"}>Daftar</span>

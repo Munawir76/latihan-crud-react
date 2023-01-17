@@ -1,8 +1,33 @@
-import { Form, Checkbox, Button, Input } from "antd";
-import React from "react";
-import Colors from "../themes/color";
+import { Form, Checkbox, Button, Input, message } from "antd";
+import React, { useState } from "react";
+import { authRepository } from "../repository/auth";
+import { useNavigate } from "react-router";
+import jwt_decode from "jwt-decode";
 
 export default function Login() {
+  const router = useNavigate();
+  const [form] = Form.useForm();
+  const submitLogin = () => {
+    form.validateFields().then(async (values) => {
+      try {
+        const dataLogin = {
+          email: values.email,
+          password: values.password,
+        };
+        await authRepository.api.login(dataLogin);
+        await message.success("Login Berhasil");
+        const decode = jwt_decode(localStorage.getItem("access_token"));
+        if (decode.role === "Member") {
+          router("/product");
+        } else if (decode.role === "Admin") {
+          router("/admin");
+        }
+      } catch (error) {
+        message.error("Error");
+      }
+    });
+  };
+
   return (
     <div
       className={
@@ -17,7 +42,12 @@ export default function Login() {
         {/* <Image preview={false} src={'/assets/logo/horizontal.png'} alt={"SaranaInvest.id logo"} className={"w-40 my-8"} /> */}
         <span className={"text-2xl "}>Masuk</span>
         <div className={"w-[80%]"}>
-          <Form layout="vertical" onFinish={""} requiredMark={false}>
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={submitLogin}
+            requiredMark={false}
+          >
             <Form.Item
               name="email"
               label="E-mail"
@@ -54,6 +84,7 @@ export default function Login() {
               <Button
                 type="primary"
                 size={"large"}
+                htmlType={"submit"}
                 className={`bg-blue-600 text-white w-full`}
               >
                 <span className={"font-bold"}>Masuk</span>
