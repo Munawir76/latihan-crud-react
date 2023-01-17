@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Card, Col, Row } from "antd";
+import { convertRupiah } from "../../helper/convert-rupiah";
 
 export default function CardProduct(props) {
   const { harga, title, deskripsi, category, image } = props;
@@ -23,13 +24,13 @@ export default function CardProduct(props) {
         <div>
           <Row className="justify-between  mt-5">
             <Col className="text-lg font-semibold">
-              <span>{harga}</span>
+              <span>{convertRupiah(harga)}</span>
             </Col>
             <Col>
               <Button
                 type="primary"
                 size="large"
-                className="w-14 bg-blue-700 py-3"
+                className="w-28 bg-blue-700 py-3"
               >
                 Beli
               </Button>

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import CardProduct from "../components/reusable/card-product";
-import { ProductContext } from "../context/UserContext";
+import { ProductContext } from "../context/ProductContext";
 import { Row, Spin } from "antd";
 
 export default function Product() {
@@ -25,7 +25,7 @@ export default function Product() {
           })
         ) : (
           <div className="h-screen align-middle">
-            <Spin tip="Loading" size="large">
+            <Spin size="large" className="align-middle mt-60">
               <div className="content align-bottom" />
             </Spin>
           </div>

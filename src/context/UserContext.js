@@ -1,53 +1,34 @@
-import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import React, { createContext, useEffect, useState } from "react";
 
-export const ProductContext = createContext([
+export const UserContext = createContext([
   {
     name: true,
   },
 ]);
 
-export const ProductProvider = ({ children }) => {
-  const [isLogged, setLogged] = useState(false);
-  const [dataProduct, setDataProduct] = useState("");
-
-  //   async function getProduct() {
-  //     try {
-  //       await axios.get(`http://localhost:3000/menu`).then((res) => {
-  //         // console.log(res.data, "ini res get data");
-  //         setDataProduct(res.data.data);
-  //       });
-  //     } catch (error) {
-  //       console.log("ini error", error);
-  //     }
-  //   }
+export const UserProvider = ({ children }) => {
+  const [dataUser, setDataUser] = useState();
   useEffect(() => {
-    // getProduct();
     const controler = new AbortController();
     axios
-      .get(`http://localhost:3000/menu`, {
+      .get(`http://localhost:3000/users`, {
         signal: controler.signal,
         headers: {
+          Accept: "application/json",
           "Content-Type": "application/json",
+          //   Authorization: `Bearer ${token}`, //Add this line
         },
       })
       .then((res) => {
-        // console.log(res.data, "ini res get data");
-        setDataProduct(res.data);
+        setDataUser(res);
       });
     return () => {
       controler.abort();
     };
   }, []);
 
-  const resultDataproduct = {
-    state: isLogged,
-    setter: setLogged,
-    data: dataProduct,
-  };
   return (
-    <ProductContext.Provider value={dataProduct}>
-      {children}
-    </ProductContext.Provider>
+    <UserContext.Provider value={dataUser}>{children}</UserContext.Provider>
   );
 };

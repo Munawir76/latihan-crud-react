@@ -4,6 +4,8 @@ import Product from "../product";
 import Home from "../home";
 import LayoutPage from "../../layout";
 import Dashboard from "../dashboard";
+import Login from "../login";
+import Register from "../register";
 
 const Routing = () => {
   return (
@@ -32,6 +34,8 @@ const Routing = () => {
           </LayoutPage>
         }
       />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
     </Routes>
   );
 };
