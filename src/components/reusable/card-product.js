@@ -1,9 +1,8 @@
 import React from "react";
 import { Button, Card, Col, Row } from "antd";
 
-const { Meta } = Card;
-
-export default function CardProduct() {
+export default function CardProduct(props) {
+  const { harga, title, deskripsi, category, image } = props;
   return (
     <div>
       <Card
@@ -12,26 +11,19 @@ export default function CardProduct() {
           width: 340,
         }}
         cover={
-          <img
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
+          <img alt="example" src={`http://localhost:3000/file/${image}`} />
         }
       >
-        {/* <Meta title="Europe Street beat" description="www.instagram.com" /> */}
         <div className="text-lg font-bold">
-          <span>INI JUDULNYA</span>
+          <span>{title}</span>
         </div>
         <div className="mt-5">
-          <span>
-            Ini adalah deskripsi tentang product ini. untuk membantu konsumen
-            memahami secara singkat terkait product ini
-          </span>
+          <span>{deskripsi}</span>
         </div>
         <div>
           <Row className="justify-between  mt-5">
             <Col className="text-lg font-semibold">
-              <span>Rp. 30.000</span>
+              <span>{harga}</span>
             </Col>
             <Col>
               <Button

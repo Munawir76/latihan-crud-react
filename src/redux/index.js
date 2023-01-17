@@ -16,4 +16,4 @@ const rootReducer = (state, action) => {
 };
 
 const store = createStore(rootReducer);
-console.log(store, "ini store");
+// console.log(store, "ini store");

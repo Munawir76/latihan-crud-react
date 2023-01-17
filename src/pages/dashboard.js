@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useContext } from "react";
+import TableUser from "../components/tableUser";
+import { ProductContext } from "../context/UserContext";
 
 export default function Dashboard() {
+  const data = useContext(ProductContext);
+
   return (
-    <div><h2>ini dashboard</h2></div>
-  )
+    <div>
+      <TableUser dataProduct={data.data} />
+    </div>
+  );
 }
